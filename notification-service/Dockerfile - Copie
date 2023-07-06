@@ -1,0 +1,13 @@
+FROM java:8-jre
+MAINTAINER msanka@technologies.com
+
+ADD ./target/notification-service.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="notification-service"
+ENV NEW_RELIC_LICENSE_KEY="bc17ad62449886eb9d1505a66802b2dbFFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/notification-service.jar"]
+
+EXPOSE 8000

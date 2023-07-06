@@ -1,7 +1,6 @@
-FROM java:8-jre
-MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
-
+FROM openjdk:8
+MAINTAINER msanka@atakama-technologies.com
 ADD ./target/auth-service.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/auth-service.jar"]
-
+ADD ./java-agent/* /app/
+CMD ["java","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/auth-service.jar"]
 EXPOSE 5000

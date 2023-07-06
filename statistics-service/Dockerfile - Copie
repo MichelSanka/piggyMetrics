@@ -1,0 +1,13 @@
+FROM java:8-jre
+MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
+
+ADD ./target/statistics-service.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="statistics-service"
+ENV NEW_RELIC_LICENSE_KEY="ecaffd219d8b9267f5ae4dfbb543dc1aFFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/statistics-service.jar"]
+
+EXPOSE 7000

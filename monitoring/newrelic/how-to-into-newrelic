@@ -1,0 +1,9 @@
+$env:NEW_RELIC_ACCOUNT_ID='1279216'
+commande New Relic => [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls'; (New-Object System.Net.WebClient).DownloadFile("https://download.newrelic.com/install/newrelic-cli/scripts/install.ps1", "$env:TEMP\install.ps1"); & $env:TEMP\install.ps1; $env:NEW_RELIC_API_KEY='NRAK-ZL1U86LPVEAKG91UE5ZDN1WL26L'; $env:NEW_RELIC_ACCOUNT_ID='1279216'; & 'C:\Program Files\New Relic\New Relic CLI\newrelic.exe' install
+command pour autoriser l'execution des script sur windows => Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+
+Page pour comprendre l'utilité des clés https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/
+installation agent java https://docs.newrelic.com/docs/apm/agents/java-agent/installation/install-java-agent/
+install agent java pour docker https://docs.newrelic.com/docs/apm/agents/java-agent/additional-installation/install-new-relic-java-agent-docker/
+fichier de configuration https://docs.newrelic.com/docs/apm/agents/java-agent/configuration/java-agent-configuration-config-file/#Logging-Configuration
+

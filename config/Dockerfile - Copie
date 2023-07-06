@@ -1,0 +1,15 @@
+FROM java:8-jre
+MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
+
+ADD ./target/config.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="config"
+ENV NEW_RELIC_LICENSE_KEY="51e5f82852f0a3efadfab27861f5b3b2FFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/config.jar"]
+
+HEALTHCHECK --interval=30s --timeout=30s CMD curl -f http://localhost:8888/actuator/health || exit 1
+
+EXPOSE 8888

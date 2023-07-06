@@ -1,0 +1,12 @@
+FROM java:8-jre
+MAINTAINER msanka@atakama-technologies.com
+ADD ./target/auth-service.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="auth-service"
+ENV NEW_RELIC_LICENSE_KEY="60d9f2ee50939a155bac9df4acee894bFFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/auth-service.jar"]
+
+EXPOSE 5000

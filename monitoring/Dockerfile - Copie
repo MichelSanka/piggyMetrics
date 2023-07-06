@@ -1,0 +1,13 @@
+FROM java:8-jre
+MAINTAINER msanka@atakama-technologies.com
+
+ADD ./target/monitoring.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="monitoring"
+ENV NEW_RELIC_LICENSE_KEY="5d20af3a081d2fc8dd4d3d43d30f7140FFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/monitoring.jar"]
+
+EXPOSE 8080

@@ -1,7 +1,6 @@
-FROM java:8-jre
-MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
-
+FROM openjdk:8
+MAINTAINER msanka@technologies.com
 ADD ./target/notification-service.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/notification-service.jar"]
-
+ADD ./java-agent/* /app/
+CMD ["java","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/notification-service.jar"]
 EXPOSE 8000

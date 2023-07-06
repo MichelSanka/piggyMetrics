@@ -1,7 +1,6 @@
-FROM java:8-jre
+FROM openjdk:8
 MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
-
 ADD ./target/statistics-service.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/statistics-service.jar"]
-
+ADD ./java-agent/* /app/
+CMD ["java","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/statistics-service.jar"]
 EXPOSE 7000

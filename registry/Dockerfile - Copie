@@ -1,0 +1,13 @@
+FROM java:8-jre
+MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
+
+ADD ./target/registry.jar /app/
+ADD ./java-agent/* /app/
+
+ADD ./newrelic/* /app/
+ENV NEW_RELIC_APP_NAME="registry"
+ENV NEW_RELIC_LICENSE_KEY="2712f1240f07871b754b885ab541989bFFFFNRAL"
+ENV NEW_RELIC_LOG_FILE_NAME="STDOUT"
+CMD ["java","-javaagent:/app/newrelic.jar","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/registry.jar"]
+
+EXPOSE 8761

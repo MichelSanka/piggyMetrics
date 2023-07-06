@@ -1,7 +1,6 @@
-FROM java:8-jre
-MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
-
+FROM openjdk:8
+MAINTAINER msanka@atakama-technologies.com
 ADD ./target/monitoring.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/monitoring.jar"]
-
-EXPOSE 8080
+ADD ./java-agent/* /app/
+CMD ["java","-javaagent:/app/nudge-3.5.0.jar","-jar","/app/monitoring.jar"]
+EXPOSE 8181
