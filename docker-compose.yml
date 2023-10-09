@@ -12,7 +12,7 @@ services:
 
   config:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
     image: config-service
     build:
       context: ./config
@@ -25,7 +25,7 @@ services:
 
   registry:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
     image: registry-service
     build:
       context: ./registry
@@ -43,7 +43,7 @@ services:
 
   gateway:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
     image: gateway-service
     build:
       context: ./gateway
@@ -61,11 +61,11 @@ services:
 
   auth-service:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      NOTIFICATION_SERVICE_PASSWORD: $NOTIFICATION_SERVICE_PASSWORD
-      STATISTICS_SERVICE_PASSWORD: $STATISTICS_SERVICE_PASSWORD
-      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+      NOTIFICATION_SERVICE_PASSWORD: ${PASSWORD}
+      STATISTICS_SERVICE_PASSWORD: ${PASSWORD}
+      ACCOUNT_SERVICE_PASSWORD: ${PASSWORD}
+      MONGODB_PASSWORD: ${PASSWORD}
     image: authentication-service
     build:
       context: ./auth-service
@@ -83,7 +83,7 @@ services:
 
   auth-mongodb:
     environment:
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      MONGODB_PASSWORD: ${PASSWORD}
     image: sqshq/piggymetrics-mongodb
     restart: always
     logging:
@@ -93,9 +93,9 @@ services:
 
   account-service:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+      ACCOUNT_SERVICE_PASSWORD: ${PASSWORD}
+      MONGODB_PASSWORD: ${PASSWORD}
     image: account-service
     build:
       context: ./account-service
@@ -114,7 +114,7 @@ services:
   account-mongodb:
     environment:
       INIT_DUMP: account-service-dump.js
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      MONGODB_PASSWORD: ${PASSWORD}
     image: sqshq/piggymetrics-mongodb
     restart: always
     logging:
@@ -124,9 +124,9 @@ services:
 
   statistics-service:
     environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
-      STATISTICS_SERVICE_PASSWORD: $STATISTICS_SERVICE_PASSWORD
+      CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+      MONGODB_PASSWORD: ${PASSWORD}
+      STATISTICS_SERVICE_PASSWORD: ${PASSWORD}
     image: statistic-service
     build:
       context: ./statistics-service
@@ -144,7 +144,7 @@ services:
 
   statistics-mongodb:
     environment:
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
+      MONGODB_PASSWORD: ${PASSWORD}
     image: sqshq/piggymetrics-mongodb
     restart: always
     logging:
@@ -152,70 +152,66 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  # notification-service:
-    # environment:
-      # CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      # MONGODB_PASSWORD: $MONGODB_PASSWORD
-      # NOTIFICATION_SERVICE_PASSWORD: $NOTIFICATION_SERVICE_PASSWORD
-    # image: notification-service
-    # build:
-      # context: ./notification-service
-      # dockerfile: Dockerfile
-    # restart: always
-    # depends_on:
-      # config:
-        # condition: service_healthy
-    # logging:
-      # options:
-        # max-size: "10m"
-        # max-file: "10"
+#  notification-service:
+#   environment:
+#     CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+#     MONGODB_PASSWORD: ${PASSWORD}
+#     NOTIFICATION_SERVICE_PASSWORD: ${PASSWORD}
+#   image: notification-service
+#   build:
+#     context: ./notification-service
+#     dockerfile: Dockerfile
+#   restart: always
+#   depends_on:
+#     config:
+#       condition: service_healthy
+#   logging:
+#     options:
+#       max-size: "10m"
+#       max-file: "10"
 
-  # notification-mongodb:
-    # image: sqshq/piggymetrics-mongodb
-    # restart: always
-    # environment:
-      # MONGODB_PASSWORD: $MONGODB_PASSWORD
-    # logging:
-      # options:
-        # max-size: "10m"
-        # max-file: "10"
+#  notification-mongodb:
+#     image: sqshq/piggymetrics-mongodb
+#     restart: always
+#     environment:
+#       MONGODB_PASSWORD: ${PASSWORD}
+#     logging:
+#       options:
+#         max-size: "10m"
+#         max-file: "10"
 
-  # monitoring:
-    # environment:
-      # CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    # image: monitoring-service
-    # build:
-      # context: ./monitoring
-      # dockerfile: Dockerfile
-    # restart: always
-    # depends_on:
-      # config:
-        # condition: service_healthy
-    # ports:
-      # - 9000:8080
-    # logging:
-      # options:
-        # max-size: "10m"
-        # max-file: "10"
+#  monitoring:
+#     environment:
+#       CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+#     image: monitoring-service
+#     build:
+#       context: ./monitoring
+#       dockerfile: Dockerfile
+#     restart: always
+#     depends_on:
+#       config:
+#         condition: service_healthy
+#     ports:
+#       - 9000:8080
+#     logging:
+#       options:
+#         max-size: "10m"
+#         max-file: "10"
 
-  # turbine-stream-service:
-    # environment:
-      # CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    # image: turbine-stream-service
-    # build:
-      # context: ./turbine-stream-service
-      # dockerfile: Dockerfile
-    # restart: always
-    # depends_on:
-      # config:
-        # condition: service_healthy
-    # ports:
-    # - 8989:8989
-    # logging:
-      # options:
-        # max-size: "10m"
-        # max-file: "10"
- 
-  # networks:
-    # nudge-dev-network:
-      # external: true
+#  turbine-stream-service:
+#     environment:
+#       CONFIG_SERVICE_PASSWORD: ${PASSWORD}
+#     image: turbine-stream-service
+#     build:
+#       context: ./turbine-stream-service
+#       dockerfile: Dockerfile
+#     restart: always
+#     depends_on:
+#       config:
+#         condition: service_healthy
+#     ports:
+#     - 8989:8989
+#     logging:
+#       options:
+#         max-size: "10m"
+#         max-file: "10"
